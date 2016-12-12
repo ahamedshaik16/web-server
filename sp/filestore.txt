@@ -1,0 +1,93 @@
+<form action="#" method="post" class="form" role="form" enctype = "multipart/form-data">
+											
+											<input class="form-control" name="eventName" placeholder="Event Name" type="text"
+														   required autofocus />
+											<input class="form-control" name="address" placeholder="Address of Event Conducted" type="text" required/>
+										 Rules in pdf format<input class="form-control" name="fileUpload[0]" type="file" required accept="application/pdf"/> 
+											<input class="form-control" name="prizeDetails" placeholder="Prize Details"  type="text"  required	/>
+											<input class="form-control" name="dateOfEvent"  type="date" required/>
+											<input class="form-control" name="handler_email" placeholder="mail@example.com" type="email" required/>
+											<input class="form-control" name="synopsis" placeholder="Synopsis of Event" type="text" required/>
+											Authorized authority Document
+											<input class="form-control" name="fileUpload[1]" type="file" required accept="application/pdf"/>
+											Image of the event if needed
+											<input class="form-control" name="fileUpload[2]" type="file" accept="image/jpeg"/>  
+										
+											<input class="form-control" name="contactNo" placeholder="Contact No" type="text" required/>
+											
+											<br />
+											<br />
+											<button class="btn btn-lg btn-primary btn-block"  name = "btn-newRegisteredEvents" value = "btn-newRegisteredEvents" type="submit">
+												Submit</button>
+										</form>
+
+<?php
+if(isset($_REQUEST['btn-newRegisteredEvents']))
+{	
+	
+    $eventName=$_REQUEST['eventName'];
+    $address=$_REQUEST['address'];
+	//$rules = 
+    $prizeDetails=$_REQUEST['prizeDetails'];
+    $dateOfEvent=$_REQUEST['dateOfEvent'];
+    $handler_email = $_REQUEST['handler_email'];
+	$synopsis = $_REQUEST['synopsis'];
+	$contactNo=$_REQUEST['contactNo'];
+	$accept= 'n';
+	
+		$sql="Insert into newregisteredevents(eventName,address,prizeDetails,dateOfEvent,handler_email,synopsis,accept,contactNo) 
+				values('".$eventName."','".$address."','".$prizeDetails."','".$dateOfEvent."','".$handler_email."','".$synopsis."','".$accept."',".$contactNo.")";
+		mysql_query($sql);
+		$sql1 = "SELECT eventNameId from newregisteredevents ORDER BY eventNameId DESC LIMIT 1";
+		$result = mysql_query($sql1);
+		$row = mysql_fetch_array($result,MYSQL_NUM);
+		$eventNameId = $row[0];
+		echo $eventNameId;
+		
+		$target_dir = "documents/".$eventNameId."/";
+		mkdir($target_dir,0700);
+		$target_file = $target_dir."rules.pdf";
+		$uploadOk = 1;
+		
+		if(move_uploaded_file($_FILES["fileUpload"]["tmp_name"][0],$target_file)) 
+		{
+				echo "Rules File uploaded succesfully";
+		}
+		else
+		{
+				echo "Sorry file not uploaded";
+		}
+		$target_file = $target_dir."authorizedDocument.pdf";
+		$uploadOk = 1;
+		
+		if(move_uploaded_file($_FILES["fileUpload"]["tmp_name"][1],$target_file)) 
+		{
+				echo "Authorized Document File uploaded succesfully";
+		}
+		else
+		{
+				echo "Sorry document file not uploaded";
+		}
+		$target_file = $target_dir."image.jpeg";
+		$uploadOk = 1;
+		
+		if(move_uploaded_file($_FILES["fileUpload"]["tmp_name"][2],$target_file)) 
+		{
+				echo "Image File uploaded succesfully";
+		}
+		else
+		{
+				echo "Sorry image file not uploaded";
+		}
+		
+			//$rws=mysql_fetch_assoc($result);
+			//$_SESSION['firstName']=$_REQUEST['firstName'];
+            //$_SESSION['email']=$rws['email'];
+            //$_SESSION['password']=$rws['password'];
+			//echo "".$_SESSION['firstName']; 
+			//header('Location:regsiteredEvents.php');
+    
+}
+
+
+?>

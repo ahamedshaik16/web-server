@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<?php
+include ('db.php');
+?>
+
+<html lang="en">
+<head>
+    <title>Techno Trendz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/styles.css">
+	<script src="../js/bootstrap.min.js"></script>
+    <script src="../js/html5.js"></script>
+
+
+
+    <!-- Respomsive slider -->
+    <link href="../css/responsive-slider-parallax.css" rel="stylesheet">
+</head>
+<body><div id="wrap">
+
+    <nav class="navbar navbar-fixed-top animate" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="animbrand">
+                    <a class="navbar-brand animate pad0" href="../student/home.html"><img src="../images/logo.jpg" height="50px"></a>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="">
+                        <a href="#" class="dropdown-toggle animate " data-toggle="dropdown" aria-expanded="false">
+                            Events <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class=""><a href="../student/technical.html" class="animate">Technical <span class="pull-right glyphicon glyphicon-pencil"></span></a></li>
+                            <li class=""><a href="../student/workshop.html" class="animate">Workshop <span class="pull-right glyphicon glyphicon-align-justify"></span></a></li>
+                        </ul>
+                    </li>
+                    <li class=""><a href="../student/gallery.html" class="animate">Gallery</a></li>
+                    <li class=""><a href="../student/videos.html" class="animate">Videos</a></li>
+                    <li class=""><a href="../student/guestlec.html" class="animate">Guest Lecturers</a></li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="pull-right"><a href="../student/register.php" class="animate">Sign Up</a></li>
+                    <li id="nav-login-btn" class=""><a href="../student/login.html" class="animate">Login</a></li>
+					<li id="nav-login-btn" class=""><a href="../admin/eventpage.html" class="animate">Admin home page</a></li>
+					
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+	<div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-3 searchPanel">
+                    <form>
+                        <h4>Search By Date:
+                            <input type="date" name="s_date" id="search" >
+                        </h4>
+
+                        <h4>Or</h4>
+                        <h4>Search By Name<input type="text" name="s_name" id="searchTitle"></h4>
+
+                        <input type="submit" name="search" class="btn btn-primary">
+                    </form>
+                </div>
+				
+				  <?php
+					   if((isset($_REQUEST['s_date']) ||  isset($_REQUEST['s_name'])))
+					   {	
+							$dat=$_REQUEST['s_date'];
+							$event=$_REQUEST['s_name'];
+						
+						
+				  ?>
+				<div class="col-xs-7">
+				<?php if (isset($_GET["page"]))
+						{ 
+							$page  = $_GET["page"]; 
+						} 
+					  else 
+					  {
+						$page=1; 
+					  } 
+					$start_from = ($page-1) * 4;  
+					if(isset($_REQUEST['s_date']))
+					{
+						$sql = "select eventName,dateOfEvent,eventNameId from newregisteredevents where dateOfEvent='$dat' ORDER BY eventNameId DESC LIMIT $start_from, 4"; }
+						else if (isset($_REQUEST['s_name']))
+						{
+						$sql = "select eventName,dateOfEvent,eventNameId from newregisteredevents where dateOfEvent='$event'ORDER BY eventNameId DESC LIMIT $start_from, 4";
+						}
+						else{}
+								
+						$result=mysql_query($sql);
+						while($rws = mysql_fetch_array($result)){
+								
+								
+								
+								
+								
+								
+								
+								
+				?>
+                 
+				 <div id="eventName1" class="eventHeader">
+					
+                       <a href="../admin/specificEvent.php?eventname=<?php echo $rws[0]; ?>&eventid=<?php echo $rws[2];?>">
+                           <div class="row">
+                               <div class="col-xs-4"><span>Event Name</span></div>
+                             <!--  <div class="col-xs-5"><span>Event Handler Name</span></div> -->
+                               <div class="col-xs-3"><span>Date</span></div>
+                               
+							</div>
+                           <div class="row">
+                               <div class="col-xs-4"><?php 
+							   
+								
+								 echo $rws[0]; 
+						
+								
+							   
+							   ?></div>
+                                 
+                               <div class="col-xs-3"><?php echo $rws[1]; ?></div>
+                               
+                           </div>
+                       </a>
+				 </div>
+		
+					   <?php  }
+					 
+					   
+					   
+					   
+					   ?>
+					   <div id = "numbersNav">
+					   
+<?php 
+$sql = "SELECT COUNT(eventNameId) FROM newregisteredevents"; 
+$rs_result = mysql_query($sql); 
+$row = mysql_fetch_row($rs_result); 
+$total_records = $row[0]; 
+$total_pages = ceil($total_records / 4); 
+  
+for ($i=1; $i<=$total_pages; $i++) { 
+            echo "<a href='eventPage.php?page=".$i."'>".$i."</a> "; 
+}; 
+?>
+</div>
+</div>
+					
+
+					  <?php }
+					   else{ ?>
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+                <div class="col-xs-7">
+				<?php if (isset($_GET["page"]))
+							{ $page  = $_GET["page"]; } 
+						else { $page=1; }; 
+								$start_from = ($page-1) * 4;  
+					$sql="select eventName,dateOfEvent,eventNameId from newregisteredevents ORDER BY eventNameId DESC LIMIT $start_from, 4";
+								$result=mysql_query($sql);
+								while($rws = mysql_fetch_array($result)){
+								
+								
+								
+								
+								
+								
+								
+								
+								?>
+                    <div id="eventName1" class="eventHeader">
+					
+                       <a href="../admin/specificEvent.php?eventname=<?php echo $rws[0]; ?>&eventid=<?php echo $rws[2];?>">
+                           <div class="row">
+                               <div class="col-xs-4"><span>Event Name</span></div>
+                             <!--  <div class="col-xs-5"><span>Event Handler Name</span></div> -->
+                               <div class="col-xs-3"><span>Date</span></div>
+                               
+                           </div>
+                           <div class="row">
+                               <div class="col-xs-4"><?php 
+							   
+								
+								 echo $rws[0]; 
+						
+								
+							   
+							   ?></div>
+                                 
+                               <div class="col-xs-3"><?php echo $rws[1]; ?></div>
+                               
+                           </div>
+						   
+						   
+						   
+						   
+						   
+                       </a>
+					   
+					   </div>
+					   <?php  }
+					 
+					   
+					   
+					   
+					   ?>
+					   <div id = "numbersNav">
+					   
+<?php 
+$sql = "SELECT COUNT(eventNameId) FROM newregisteredevents"; 
+$rs_result = mysql_query($sql); 
+$row = mysql_fetch_row($rs_result); 
+$total_records = $row[0]; 
+$total_pages = ceil($total_records / 4); 
+  
+for ($i=1; $i<=$total_pages; $i++) { 
+            echo "<a href='eventPage.php?page=".$i."'>".$i."</a> "; 
+}; 
+
+?>
+</div>
+
+					   
+                          <!-- <div id="eventName2" class="eventHeader">
+                        <a href="../admin/specificEvent.php">
+                        <div class="row">
+                            <div class="col-xs-4"><span>Event Name</span></div>
+                             <div class="col-xs-5"><span>Event Handler Name</span></div> 
+                            <div class="col-xs-3"><span>Date</span></div>
+                           
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">Event Name</div>
+                             <div class="col-xs-5">shilpi</div> 
+                            <div class="col-xs-3">11-05-2015</div>
+                           
+                        </div>
+                            </a>
+                    </div>
+
+                    <div id="eventName3" class="eventHeader">
+                        <a href="../admin/specificEvent.html">
+                        <div class="row">
+                            <div class="col-xs-4"><span>Event Name</span></div>
+                             <div class="col-xs-5"><span>Event Handler Name</span></div> 
+                            <div class="col-xs-3"><span>Date</span></div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">Event Name</div>
+                             <div class="col-xs-5">sruthi</div> 
+                            <div class="col-xs-3">25-01-2015</div>
+                            
+                        </div>
+                            </a>
+                    </div>
+
+                
+				<div id="eventName4" class="eventHeader">
+                        <a href="../admin/specificEvent.html">
+                        <div class="row">
+                            <div class="col-xs-4"><span>Event Name</span></div>
+                             <div class="col-xs-5"><span>Event Handler Name</span></div> 
+                            <div class="col-xs-3"><span>Date</span></div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">Event Name</div>
+                             <div class="col-xs-5">naveena</div> 
+                            <div class="col-xs-3">14-7-2015</div>
+                            
+                        </div>
+                            </a>
+                    </div> -->
+
+                </div>
+				<?php } ?>
+				<div class="col-xs-2 Quick links">
+                    <h4>Qucik links</h4>
+
+                    
+
+                        <div id="eventpage">
+                            <a href="../admin/eventpage.html"> Event page</a>
+                        </div>
+
+                        <div id="everyEventDetails">
+                            <a href="../admin/everyEventDetails.html"> list details</a>
+                        </div>
+
+                        <div id="updateEventDetails">
+                            <a href="../admin/updateEventDetails.html"> update lists</a>
+                        </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end container -->
+    <div id="push"></div>
+</div>
+<div id="footer">
+    <div class="container">
+        <div class="col-sm-12 martop15 marbottom15">
+            <div class="container">
+                <div class="pull-left martop15">
+                    <span class="pull-right">© 2015
+                        <a href="home.html" title="Techno Trendz" target="_blank">Techno Trendz</a></span>
+                </div>
+                <div class="pull-right martop15">
+                    <a href="about.html" title="About Us" target="_blank">About Us</a>
+                    <span class="separator"></span>
+                    <a href="support.html" title="Support" target="_blank">Support</a>
+                    <span class="separator"></span>
+                    <a href="faq.html" title="FAQ" target="_blank">FAQ</a>
+                    <span class="separator"></span>
+                    <a href="privacy.html" title="Privacy Policy" target="_blank">Privacy Policy</a>
+                </div>
+
+            </div>
+            </footer>
+
+        </div>
+    </div>
+</div>
+		
+					   
+                    
+	
+
+<script src="../js/jquery-1.10.2.min.js"></script>
+<script src="../js/responsive-slider.js"></script>
+
+<script src="../js/bootstrap.min.js"></script>
+</body>
+</html>

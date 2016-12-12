@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<?php
+include ('db.php');
+?>
+<html>
+<head>
+    <title>Techno Trendz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <link href="../css/styles.css" rel="stylesheet">
+    <link href="../css/responsive-slider-parallax.css" rel="stylesheet">
+
+    <script src="../js/jquery-1.10.2.min.js"></script>
+
+    <script src="../js/bootstrap.min.js"></script>
+    
+
+
+</head>
+<body>
+<div id="wrap">
+
+    <nav class="navbar navbar-fixed-top animate" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="animbrand">
+                    <a class="navbar-brand animate pad0" href="home.php"><img src="../images/logo.jpg" height="50px"></a>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="">
+                        <a href="#" class="dropdown-toggle animate " data-toggle="dropdown" aria-expanded="false">
+                            Events <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class=""><a href="../student/technical.php" class="animate">Technical <span class="pull-right glyphicon glyphicon-pencil"></span></a></li>
+                            
+                        </ul>
+                    </li>
+                    <li class=""><a href="../student/gallery.php" class="animate">Gallery</a></li>
+                    <li class=""><a href="../student/video.php" class="animate">Videos</a></li>
+                   
+
+                </ul>
+				
+				<!-- creating Session here -->
+				<?php
+
+				if(!isset($_SESSION['firstName'])) 
+				{?>
+								<ul class="nav navbar-nav navbar-right">
+									<li class="pull-right"><a href="../student/register.php" class="animate">Sign Up</a></li>
+									<li id="nav-login-btn" class=""><a href="../student/login.php" class="animate">Login</a></li>
+								</ul>
+								<?php 
+				} 
+				else
+				{?> 
+								<ul class="nav navbar-nav navbar-right">
+									<li class=><a  class="animate">Welcome &nbsp <?php
+								  echo "".$_SESSION['firstName'];
+								  ?></a></li>
+									<li id="nav-login-btn" class="pull-right"><a href="logout.php" class="animate">Log Out</a></li>
+								
+								<?php
+								if($_SESSION['typeOfHandler'] == "handler")
+								{?>
+									<li id="nav-login-btn" class=""><a href="../handler/regsiteredEvents.php" class="animate">My Home Page</a></li>
+								<?php
+								}
+								else if($_SESSION['typeOfHandler'] == "adminRole")
+								{?>
+									<li id="nav-login-btn" class=""><a href="../admin/eventPage.php" class="animate">Admin Home Page</a></li>
+								<?php
+								}
+								else if($_SESSION['typeOfHandler'] == "participant")
+								{?>
+									 <li class="">
+										<a href="#" class="dropdown-toggle animate " data-toggle="dropdown" aria-expanded="false">
+												My Profile <span class="caret"></span>
+										</a>
+										<ul class="dropdown-menu" role="menu">
+											<li class=""><a href="../student/userRegisteredEvents.php" class="animate">Registered Events <span class="pull-right"></span></a></li>
+											
+										</ul>
+									</li>
+									
+								<?php
+									
+								}
+								
+									
+								
+				} 					
+				?>
+				</ul>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+
+    </div>
+	<br>
+	<br>
+	<br>
+    <div class="col-xs-2"></div>
+        <div class="col-md-8">
+            <div class="panel with-nav-tabs panel-default">
+                <div class="panel-heading">
+                    <ul class="nav nav-tabs">
+						
+                        <li class="active"><a href="#tab3default" data-toggle="tab">
+                                          <h1 align="center">About Us</h1></a></li>
+					</ul>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+					
+					
+					
+						 <div class="tab-pane fade active in" id="tab3default">
+						 <div style="background-image:url(C:\Users\sruthi\Downloads\admin\images\logo.jpg">
+                
+
+                                          <h2 align="center">About Techno Trendz!!</h2>  <br />
+										  Techno Trendz is dedicated to 100% user delight ensuring to provide relevant and correct information to wide variety of audience base. it provides a platform  to open up your talent on a world wide level. 
+										  our mission is to make it as an online tool through which interaction and promtion of events done more easily.<br /> With Techno Trendz, we hope to bring out variety of options available to you<br /> <h3 align="center">what do we do ?</h3>  <br /> Techno Trendz marks a hazzle-free way to register in the events . we also educate through workshops and guest lectures. if you have any issues with any of the features you can put on your questions to FAQ.
+									      we provide an easy way to browse and user fiendly features. when it comes to your personal details, all data is safe and secure with us and will not be shared to any third party. This website can create a revolution in promting events which will save our time and make it easy to operate.  
+                        </div>
+						<div class="tab-pane fade" id="tab1default">
+						
+							
+							
+						
+								   
+								   
+								   
+								   
+                        </div>
+						
+						
+						
+						
+                       
+                        
+                </div>
+			</div>
+        </div>
+	</div>
+    <div class="col-xs-2"></div>
+</div>
+
+
+
+            </div>
+           
+
+        </div>
+    </div>
+</div>
+	
+<script src="../js/jquery-1.10.2.min.js"></script>
+
+
+<script src="../js/bootstrap.min.js"></script>
+    <!-- end container -->
+    <div id="push"></div>
+</div>
+<div id="footer">
+    <div class="container">
+        <div class="col-sm-12 martop15 marbottom15">
+            <div class="container">
+                <div class="pull-left martop15">
+                    <span class="pull-right">© 2015
+                        <a href="../student/home.php" title="Techno Trendz" target="_blank">Techno Trendz</a></span>
+                </div>
+                <div class="pull-right martop15">
+                    <a href="../student/about.php" title="About Us" target="_blank">About Us</a>
+                    <span class="separator"></span>
+                    <a href="../student/support.php" title="Support" target="_blank">Contact</a>
+                    <span class="separator"></span>
+                    <a href="../student/faq.php" title="FAQ" target="_blank">FAQ</a>
+                    <span class="separator"></span>
+                    <a href="../student/privacy.php" title="Privacy Policy" target="_blank">Privacy Policy</a>
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
