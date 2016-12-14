@@ -6,7 +6,12 @@ var app = express();
 var PORT = process.env.PORT || 3000;
 
 // app.get('/', function (req, res) {
-// 	res.send('Hello Express!');
+	
+// 	res.send('check');
+// });
+
+// app.post('/contact', function (req, res) {
+// 	var city = req.query.mytext;
 // });
 
 var middleware = require('./middleware.js');
